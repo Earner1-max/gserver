@@ -1,0 +1,51 @@
+import dotenv from "dotenv";
+dotenv.config();
+
+const BOT_TOKEN = process.env.BOT_TOKEN || "8289206107:AAHiVEDBg2bnyyBjsIKP53gJO_hAE1vQftc";
+const ADMIN_ID = parseInt(process.env.ADMIN_ID || "5574348933", 10);
+const OXAPAY_API_KEY = process.env.OXAPAY_API_KEY || "F8DZEL-K5S3KF-FIK1NC-XYHL66";
+const DATABASE_FILE = process.env.DATABASE_FILE || "gtc_bot.db";
+
+// ── Hardcoded join channels (bot is admin only in Crpto_Hnter) ──────────────
+const REQUIRED_CHANNELS = [
+    {
+        name: "GTC Network Coin 📢",
+        url: "https://t.me/gtechnetworkcoin",
+        tg_id: "@gtechnetworkcoin",
+        verifiable: false,   // bot not admin → can't verify via API
+    },
+    {
+        name: "GTC on X (Twitter) 🐦",
+        url: "https://x.com/gtechnetwork",
+        tg_id: null,
+        verifiable: false,
+    },
+    {
+        name: "GTC Instagram 📸",
+        url: "https://www.instagram.com/gtechnetwork?igsh=dGUyOWVuNGF3a2k2",
+        tg_id: null,
+        verifiable: false,
+    },
+    {
+        name: "Crypto Hunter 🔍",
+        url: "https://t.me/Crpto_Hnter",
+        tg_id: "@Crpto_Hnter",
+        verifiable: true,   // bot IS admin here → verify membership
+    },
+];
+
+// Default settings (overridable by admin at runtime via DB)
+const DEFAULT_REFER_AMOUNT = 50;       // GTC per referral
+const DEFAULT_MINE_AMOUNT = 10;        // GTC per mine
+const DEFAULT_MINE_COOLDOWN = 86400;   // seconds (24 h)
+const DEFAULT_MIN_WITHDRAWAL = 1000;   // GTC
+
+const GTC_PRICE_USDT = 0.06;           // 1 GTC = $0.06 USDT
+const PRESALE_PRICE_USDT = 10.0;       // flat $10 USDT to join presale
+const PRESALE_GTC_REWARD = 10000;      // GTC credited on presale approval
+const TGE_PRICE_USDT = 4.0;            // flat $4 USDT to join TGE
+
+const TGE_WITHDRAWAL_PERCENT = 40;     // % of balance withdrawable for TGE users
+const PRESALE_WITHDRAWAL_PERCENT = 100;// % of balance withdrawable for Presale users
+
+const OXAPAY_BASE_URL = "https://api.oxapay.com";
